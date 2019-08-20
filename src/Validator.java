@@ -226,7 +226,67 @@ public class Validator {
         return true;
     }
     public static boolean isDate(String text){
-        // your code here
-        return true;
-    }  
+        //Data turi tureti 10 simboliu 
+        if (text.length() != 10){
+        return false;
+        }
+        //Data turi tureti 8 skaitmenis
+        int count = 0;
+        for (int i=0; i<text.length(); i++){
+            if (Character.isDigit(text.charAt(i))){
+                count +=1;
+                System.out.println(count);
+            }
+        }
+        if (count !=8){
+            return false;
+        }
+        //5-as ir 8-as simboliai turi buti tarpai ar skaiciai
+        if (text.charAt(4) != ' ' && text.charAt(4) != '-'){
+            System.out.println("Ties 5 simboliu");
+            return false;
+        }
+        if (text.charAt(7) != ' ' && text.charAt(7) != '-'){
+            System.out.println("Ties 8 simboliu");
+            return false;
+        }
+        //Metai negali buti mazesni uz UNIX time ir didesni uz einamuosius
+        String temptext = text.substring(0, 4);
+        if ((Integer.parseInt(temptext)<1969) || (Integer.parseInt(temptext)>2019)){
+            System.out.println("Ties metu reiksme");
+            return false;
+        }
+        // Menesiai negali buti mazesni uz 1 ir didesni uz 12
+        temptext = text.substring(5, 7);
+        if ((Integer.parseInt(temptext)> 12) || (Integer.parseInt(temptext)<1)){
+            System.out.println("Ties menesiu reiksme");
+            return false;
+        }
+        // Dienos negali buti mazesnes uz 1 ir didesnes uz 31
+        temptext = text.substring(8, 10);
+        if ((Integer.parseInt(temptext)> 31) || (Integer.parseInt(temptext)<1)){
+            System.out.println("Ties dienu reiksme");
+            return false;
+        }
+        //Iskeliam metus, menesius ir dienas i atskirus stringus
+        String tempyear = text.substring(0,4);
+        String tempmonth = text.substring(5,7);
+        String tempday = text.substring(8,10);
+        // Panaikinai 31-a diena is menesiu, kurie turi maziau dienu
+        if ((tempmonth.equals("02") || (tempmonth.equals("04")) || (tempmonth.equals("06")) || (tempmonth.equals("09")) || 
+                (tempmonth.equals("11"))) && (Integer.parseInt(tempday) == 31 )){
+            return false;
+        }
+        //Panaikinam vasario 30
+        if ((tempmonth.equals("02"))  && (Integer.parseInt(tempday) == 30 )){
+            return false;
+        }
+        // Tikrinam vasario 29
+        if (!(Integer.parseInt(tempyear) % 4 == 0 && (Integer.parseInt(tempday) == 29 ))){
+            if (tempmonth.equals("02")){
+            return false;
+            }
+        }
+         return true;
+     }   
 }
