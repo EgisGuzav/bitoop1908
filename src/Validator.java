@@ -171,9 +171,29 @@ public class Validator {
         return true;
     }
     public static boolean isAddress(String text){
-        // your code here
+        if (!(Character.isUpperCase(text.charAt(0)))){
+            return false;
+        }
+        if (!(text.contains("g.") || text.contains("pr.") || text.contains("pl.") || text.contains("al.") )){
+            return false;
+        }
+        for (int i = 0; i < text.length(); ++i){
+            if (Character.isDigit(text.charAt(i))){
+                break;
+            }
+            if (i == text.length()-1){
+                return false;
+            }
+        }
+        for (int j = 0; j < text.length(); ++j) {
+            if ((text.charAt(j) == ',') && (text.charAt(j+1) == ' ') ){
+                if (!(Character.isUpperCase(text.charAt(j+2)))){
+                   return false; 
+                }
+            }
+        }
         return true;
-    }    
+    }   
     public static boolean isEmail(String text){
         // your code here
         return true;
