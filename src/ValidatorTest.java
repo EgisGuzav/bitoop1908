@@ -55,16 +55,38 @@ class SingleSentenceTestRunner extends TestRunner {
 class FirstNameTestRunner extends TestRunner {
     FirstNameTestRunner(){
         validText = new String[]{ 
-            // your code here, modify value list to include valid values
-            "GoodValue1", 
-            "GoodValue2", 
-            "GoodValue3" 
+
+            "",
+            null,
+            "Vardas", 
+            "De'Vardas", 
+            "Ala Vardas",
+            "V'Ardas",
+            "A",
+            "Antonio Fon'Shvager'Don Salvador" 
         };
         invalidText = new String[]{
-            // your code here, modify value list to include invalid values  
-            "BadValue1", 
-            "BadValue2", 
-            "BadValue3" 
+
+            "vardas", //prasideda mažąja
+            "VardaS", //baigiasi dižiąja
+            "VaRdas",//didžioji viduryje
+
+            "Vardas.", //Baigiasi kitu simboliu
+            "%Vardas", //prasideda kitu simboliu
+            "V4rdas", //kitoks simbolis vidury
+
+            "Vardas ",// tarpas gale
+            " Vardas",//tarpas prieky
+            "Vardas  Kitas",// du tarpai
+            "Vardas kitas",// po tarpo mažoji
+
+            "Vardas'",// kabliukas paskutinis
+            "'Vardas",// kabliukas pirmas
+            "De'vardas",//po kabliuko mažoji 
+            "De' Vardas",//po kabliuko tarpas
+            "Vardas 'kitas",// po tarpo kabliukas
+            "De'!Vardas",//po kabliuko kitas simbolis
+            "De''Vardas",// du kabliukai
         };
     }   
     public boolean test(String text){
@@ -74,14 +96,38 @@ class FirstNameTestRunner extends TestRunner {
 class LastNameTestRunner extends TestRunner {
     LastNameTestRunner(){
         validText = new String[]{ 
-            "GoodValue1", 
-            "GoodValue2", 
-            "GoodValue3" 
+
+           "",
+            null,
+            "Vardas", 
+            "De'Vardas", 
+            "Ala Vardas",
+            "V'Ardas",
+            "A",
+            "Antonio Fon'Shvager'Don Salvador"
         };
         invalidText = new String[]{  
-            "BadValue1", 
-            "BadValue2", 
-            "BadValue3" 
+
+            "vardas", //prasideda mažąja
+            "VardaS", //baigiasi dižiąja
+            "VaRdas",//didžioji viduryje
+
+            "Vardas.", //Baigiasi kitu simboliu
+            "%Vardas", //prasideda kitu simboliu
+            "V4rdas", //kitoks simbolis vidury
+
+            "Vardas ",// tarpas gale
+            " Vardas",//tarpas prieky
+            "Vardas  Kitas",// du tarpai
+            "Vardas kitas",// po tarpo mažoji
+
+            "Vardas'",// kabliukas paskutinis
+            "'Vardas",// kabliukas pirmas
+            "De'vardas",//po kabliuko mažoji 
+            "De' Vardas",//po kabliuko tarpas
+            "Vardas 'kitas",// po tarpo kabliukas
+            "De'!Vardas",//po kabliuko kitas simbolis
+            "De''Vardas",// du kabliukai
         };
     }
     public boolean test(String text){
@@ -193,15 +239,42 @@ class EmailTestRunner extends TestRunner {
 }
 class PhoneTestRunner extends TestRunner {
     PhoneTestRunner(){
-        validText = new String[]{ 
-            "GoodValue1", 
-            "GoodValue2", 
-            "GoodValue3" 
+        validText = new String[]{
+
+            "+37068234453", 
+            "0037068234453", 
+            "868234453",
+            null,
+            ""
         };
         invalidText = new String[]{  
-            "BadValue1", 
-            "BadValue2", 
-            "BadValue3" 
+
+            "+37168234453",// ne lietuviškas numeris
+            "37068+234453",// plus per vidurį
+            "37068234453+",// plus gale
+            "+37068234",// ilgis 9 su plus
+            "+370682344535",// ilgis 13 su plus
+            "+3706823445354",// ilgis >13 su plus
+            "+3706823",// ilgis < 9 su plus
+
+            "00370682344535",// >13 simbolių su 00
+            "003706823445",// 12 simbolių su 00
+            "003706823",// 9 simboliai su 00
+
+            "768234453",// ilgis 9; prasideda ne su 8
+            "868234453569",// ilgis 12 su 8
+            "8682344539687",// ilgis 13 su 8
+            "868234453454545478",// ilgis >13 su 8
+            "8642221",// ilgis < 9 su 8
+
+            "+37068A34452",// ne skaičius vidury
+            "%68234453",// ne skai2ius pradžioje
+            "86823445ą",// ne skaičius pabaigoje
+            "+3706823445ą",// ne skaičius pabaigoje
+            "003706823445ą",// ne skaičius pabaigoje
+            "+370682344Ą4",// priešpaskutinis ne skaičius
+            "+370682344į2",//  priešpaskutinis ne skaičius
+            "00370682344į3",//  priešpaskutinis ne skaičius
         };
     }
     public boolean test(String text){
@@ -292,7 +365,7 @@ public class ValidatorTest {
             new AccountNumberTestRunner(), new MoneyTestRunner(), new DateTestRunner()
         };
         // run each test
-        for(int i = 0; i < 1; ++i){
+        for(int i = 0; i < 13; ++i){
             runTests(tests[i], String.format("%02d", i+1));            
         }
 
