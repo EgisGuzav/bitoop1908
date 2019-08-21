@@ -1,6 +1,11 @@
 
 
 public class Validator {
+    public static boolean isInRange(int value, int low, int high){
+        if (low <= value && value <= high)
+            return true;
+        return false;
+    }
     // the first test is an example test
     // checking 
     public static boolean isSingleSentence(String text){
